@@ -16,7 +16,6 @@ public abstract class BaseDAO<T extends BaseEntity> {
         try {
             Node node = session.getNode(path);
             entity = getEntity();
-//            entity.setNode(node);
             entity.setEntityValues(node);
         } catch (PathNotFoundException e) {
             throw e;
