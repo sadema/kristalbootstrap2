@@ -2,6 +2,7 @@ package nl.kristalsoftware.kristalcms.business.customer.boundary;
 
 import nl.kristalsoftware.kristalcms.business.customer.entity.Customer;
 import nl.kristalsoftware.kristalcms.core.boundary.BaseResource;
+import nl.kristalsoftware.kristalcms.core.boundary.Controller;
 import nl.kristalsoftware.kristalcms.core.boundary.Processor;
 import nl.kristalsoftware.kristalcms.core.main.CMSDataException;
 import org.jboss.resteasy.links.AddLinks;
@@ -35,6 +36,9 @@ public class CustomerResource extends BaseResource<Customer> {
     Session session;
 
     @Inject
+    CustomerController controller;
+
+    @Inject
     Processor<Customer> customerProcessor;
 
     @PostConstruct
@@ -66,6 +70,11 @@ public class CustomerResource extends BaseResource<Customer> {
     @Override
     protected Processor<Customer> getProcessor() {
         return customerProcessor;
+    }
+
+    @Override
+    protected Controller getController() {
+        return controller;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class CustomerProcessor extends BaseProcessor implements Processor<Custom
     }
 
     @Override
-    public String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Customer customer = null;
         try {
             customer = baseDAO.getEntity();
@@ -46,7 +46,7 @@ public class CustomerProcessor extends BaseProcessor implements Processor<Custom
         } catch (RepositoryException e) {
             throw new CMSDataException(e);
         }
-        String newLocation = baseDAO.createEntity(session, uriInfo.getPath(), customer);
+        String newLocation = baseDAO.createEntity(session, path, customer);
         return newLocation;
     }
 

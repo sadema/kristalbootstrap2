@@ -34,8 +34,11 @@ public abstract class BaseResource<E extends BaseEntity> {
     public Response createEntity(UriInfo uriInfo, JsonObject jsonObject, Session session) {
         Response response = null;
         try {
-            Processor<E> processor = getProcessor();
-            String newPath = processor.post(uriInfo, jsonObject, session);
+            Controller controller = getController();
+            String newPath = controller.post(uriInfo, jsonObject, session);
+
+//            Processor<E> processor = getProcessor();
+//            String newPath = processor.post(uriInfo, jsonObject, session);
             entityCreated();
             if (newPath != null) {
                 response = Response.created(URI.create(newPath)).build();
@@ -74,6 +77,8 @@ public abstract class BaseResource<E extends BaseEntity> {
 
     }
     abstract protected Processor<E> getProcessor();
+
+    abstract protected Controller getController();
 
     abstract protected void entityCreated() throws CMSDataException;
 

@@ -35,7 +35,7 @@ public class TemplateProcessor extends BaseProcessor implements Processor<Templa
     }
 
     @Override
-    public String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Template template = null;
         try {
             template = baseDAO.getEntity();
@@ -43,7 +43,7 @@ public class TemplateProcessor extends BaseProcessor implements Processor<Templa
         } catch (RepositoryException e) {
             throw new CMSDataException(e);
         }
-        String newLocation = baseDAO.createEntity(session, uriInfo.getPath(), template);
+        String newLocation = baseDAO.createEntity(session, path, template);
         return newLocation;
     }
 

@@ -2,6 +2,7 @@ package nl.kristalsoftware.kristalcms.business.template.boundary;
 
 import nl.kristalsoftware.kristalcms.business.template.entity.Template;
 import nl.kristalsoftware.kristalcms.core.boundary.BaseResource;
+import nl.kristalsoftware.kristalcms.core.boundary.Controller;
 import nl.kristalsoftware.kristalcms.core.boundary.Processor;
 import nl.kristalsoftware.kristalcms.core.main.CMSDataException;
 
@@ -79,6 +80,11 @@ public class TemplateResource extends BaseResource<Template> {
     @Override
     protected Processor<Template> getProcessor() {
         return templateProcessor;
+    }
+
+    @Override
+    protected Controller getController() {
+        return null;
     }
 
     @Override

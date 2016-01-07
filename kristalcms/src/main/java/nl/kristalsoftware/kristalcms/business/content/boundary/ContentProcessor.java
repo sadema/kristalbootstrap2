@@ -32,7 +32,7 @@ public class ContentProcessor extends BaseProcessor implements Processor<Content
     }
 
     @Override
-    public String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Content content = null;
         try {
             content = baseDAO.getEntity();
@@ -40,7 +40,7 @@ public class ContentProcessor extends BaseProcessor implements Processor<Content
         } catch (RepositoryException e) {
             throw new CMSDataException(e);
         }
-        String newLocation = baseDAO.createEntity(session, uriInfo.getPath(), content);
+        String newLocation = baseDAO.createEntity(session, path, content);
         return newLocation;
     }
 

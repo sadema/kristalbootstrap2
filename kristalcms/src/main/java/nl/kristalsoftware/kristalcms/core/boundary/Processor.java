@@ -14,6 +14,6 @@ import javax.ws.rs.core.UriInfo;
 public interface Processor<E> {
 
     E get(String path, Session session) throws PathNotFoundException, CMSDataException;
-    String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException;
+    String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException;
     void delete(String path, Session session) throws PathNotFoundException, CMSDataException;
 }
