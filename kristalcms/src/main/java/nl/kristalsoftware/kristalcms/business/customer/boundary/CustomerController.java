@@ -1,7 +1,6 @@
 package nl.kristalsoftware.kristalcms.business.customer.boundary;
 
 import nl.kristalsoftware.kristalcms.business.customer.entity.Customer;
-import nl.kristalsoftware.kristalcms.business.pages.entity.PagesFactory;
 import nl.kristalsoftware.kristalcms.core.boundary.Controller;
 import nl.kristalsoftware.kristalcms.core.boundary.Processor;
 import nl.kristalsoftware.kristalcms.core.main.CMSDataException;
@@ -22,12 +21,12 @@ public class CustomerController implements Controller {
     Processor<Customer> customerProcessor;
 
     @Inject
-    PagesFactory entityFactory;
+    CustomerChildBuilderList customerChildBuilderList;
 
     @Override
     public String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         String newPath = customerProcessor.createNewEntity(uriInfo.getPath(), jsonObject, session);
-        entityFactory.createEntity(newPath, session);
+        customerChildBuilderList.build(newPath, session);
         return newPath;
     }
 
