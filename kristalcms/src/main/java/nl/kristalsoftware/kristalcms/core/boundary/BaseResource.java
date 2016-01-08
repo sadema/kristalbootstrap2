@@ -22,7 +22,7 @@ public abstract class BaseResource<E extends BaseEntity> {
         E entity = null;
         try {
             Processor<E> processor = getProcessor();
-            entity = processor.get(path, session);
+            entity = processor.getEntity(path, session);
         } catch (PathNotFoundException e) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         } catch (CMSDataException e) {
@@ -38,7 +38,7 @@ public abstract class BaseResource<E extends BaseEntity> {
             String newPath = controller.post(uriInfo, jsonObject, session);
 
 //            Processor<E> processor = getProcessor();
-//            String newPath = processor.post(uriInfo, jsonObject, session);
+//            String newPath = processor.createNewEntity(uriInfo, jsonObject, session);
             entityCreated();
             if (newPath != null) {
                 response = Response.created(URI.create(newPath)).build();
@@ -57,7 +57,7 @@ public abstract class BaseResource<E extends BaseEntity> {
         Response response = null;
         try {
             Processor<E> processor = getProcessor();
-            processor.delete(path, session);
+            processor.deleteEntity(path, session);
             entityRemoved();
             response = Response.noContent().build();
         } catch (PathNotFoundException e) {

@@ -32,13 +32,13 @@ public class CustomerProcessor extends BaseProcessor implements Processor<Custom
     BaseDAO<Customer> baseDAO;
 
     @Override
-    public Customer get(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public Customer getEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         Customer entity = baseDAO.getEntity(session, path);
         return entity;
     }
 
     @Override
-    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String createNewEntity(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Customer customer = null;
         try {
             customer = baseDAO.getEntity();
@@ -51,7 +51,7 @@ public class CustomerProcessor extends BaseProcessor implements Processor<Custom
     }
 
     @Override
-    public void delete(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public void deleteEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         baseDAO.removeEntity(session, path);
     }
 

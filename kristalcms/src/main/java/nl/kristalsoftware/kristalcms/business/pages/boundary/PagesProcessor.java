@@ -22,12 +22,12 @@ public class PagesProcessor extends BaseProcessor implements Processor<Pages> {
     BaseDAO<Pages> baseDAO;
 
     @Override
-    public Pages get(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public Pages getEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         return null;
     }
 
     @Override
-    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String createNewEntity(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Pages pages = null;
         try {
             pages = baseDAO.getEntity();
@@ -40,7 +40,7 @@ public class PagesProcessor extends BaseProcessor implements Processor<Pages> {
     }
 
     @Override
-    public void delete(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public void deleteEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
 
     }
 

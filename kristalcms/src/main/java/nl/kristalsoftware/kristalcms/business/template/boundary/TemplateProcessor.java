@@ -29,13 +29,13 @@ public class TemplateProcessor extends BaseProcessor implements Processor<Templa
     BaseDAO<Template> baseDAO;
 
     @Override
-    public Template get(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public Template getEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         Template entity = baseDAO.getEntity(session, path);
         return entity;
     }
 
     @Override
-    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String createNewEntity(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Template template = null;
         try {
             template = baseDAO.getEntity();
@@ -48,7 +48,7 @@ public class TemplateProcessor extends BaseProcessor implements Processor<Templa
     }
 
     @Override
-    public void delete(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public void deleteEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         baseDAO.removeEntity(session, path);
     }
 

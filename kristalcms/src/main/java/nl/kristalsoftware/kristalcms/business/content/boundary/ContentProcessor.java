@@ -27,12 +27,12 @@ public class ContentProcessor extends BaseProcessor implements Processor<Content
     BaseDAO<Content> baseDAO;
 
     @Override
-    public Content get(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public Content getEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         return baseDAO.getEntity(session, path);
     }
 
     @Override
-    public String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
+    public String createNewEntity(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         Content content = null;
         try {
             content = baseDAO.getEntity();
@@ -45,7 +45,7 @@ public class ContentProcessor extends BaseProcessor implements Processor<Content
     }
 
     @Override
-    public void delete(String path, Session session) throws PathNotFoundException, CMSDataException {
+    public void deleteEntity(String path, Session session) throws PathNotFoundException, CMSDataException {
         baseDAO.removeEntity(session, path);
     }
 

@@ -13,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
  */
 public interface Processor<E> {
 
-    E get(String path, Session session) throws PathNotFoundException, CMSDataException;
-    String post(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException;
-    void delete(String path, Session session) throws PathNotFoundException, CMSDataException;
+    E getEntity(String path, Session session) throws PathNotFoundException, CMSDataException;
+    String createNewEntity(String path, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException;
+    void deleteEntity(String path, Session session) throws PathNotFoundException, CMSDataException;
 }
