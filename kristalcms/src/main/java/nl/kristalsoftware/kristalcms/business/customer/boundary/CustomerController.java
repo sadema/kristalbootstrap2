@@ -21,12 +21,12 @@ public class CustomerController implements Controller {
     Processor<Customer> customerProcessor;
 
     @Inject
-    CustomerChildBuilderList customerChildBuilderList;
+    CustomerChildrenBuilder customerChildrenBuilder;
 
     @Override
     public String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         String newPath = customerProcessor.createNewEntity(uriInfo.getPath(), jsonObject, session);
-        customerChildBuilderList.build(newPath, session);
+        customerChildrenBuilder.build(newPath, session);
         return newPath;
     }
 

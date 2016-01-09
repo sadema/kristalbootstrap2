@@ -1,7 +1,7 @@
 package nl.kristalsoftware.kristalcms.business.customer.boundary;
 
 import nl.kristalsoftware.kristalcms.core.boundary.Builder;
-import nl.kristalsoftware.kristalcms.core.boundary.ChildBuilderList;
+import nl.kristalsoftware.kristalcms.core.boundary.ChildrenBuilder;
 import nl.kristalsoftware.kristalcms.core.main.CMSDataException;
 
 import javax.annotation.PostConstruct;
@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by sjoerdadema on 08/01/16.
  */
-public class CustomerChildBuilderList implements ChildBuilderList {
+public class CustomerChildrenBuilder implements ChildrenBuilder {
 
-    List<Builder> childBuilderlist;
+    private List<Builder> childBuilderlist;
 
     @Inject
     Builder pagesBuilder;

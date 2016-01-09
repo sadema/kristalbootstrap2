@@ -9,7 +9,7 @@ import javax.jcr.Session;
 /**
  * Created by sjoerdadema on 08/01/16.
  */
-public interface ChildBuilderList {
+public interface ChildrenBuilder {
 
     void build(String parentPath, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException;
 
