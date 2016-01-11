@@ -35,7 +35,7 @@ public class TemplateResource extends BaseResource<Template> {
     Session session;
 
     @Inject
-    private Processor<Template> templateProcessor;
+    private Controller<Template> templateHttpController;
 
     @PostConstruct
     public void init() {
@@ -50,8 +50,7 @@ public class TemplateResource extends BaseResource<Template> {
     @GET
     @Path("{customerId}/templates/{templateId}")
     public Template getTemplate(@PathParam("customerId") String customerId, @PathParam("templateId") String templateId, @Context UriInfo uriInfo) {
-        Template template = super.getEntity(uriInfo.getPath(), session);
-//        templateEntity.setCustomerId(customerId);
+        Template template = super.get(uriInfo, session);
         return template;
     }
 
@@ -59,7 +58,7 @@ public class TemplateResource extends BaseResource<Template> {
     @Produces("text/html")
     @Path("{customerId}/templates/{templateId}")
     public String getTemplateContent(@PathParam("customerId") String customerId, @PathParam("templateId") String templateId, @Context UriInfo uriInfo) {
-        Template template = super.getEntity(uriInfo.getPath(), session);
+        Template template = super.get(uriInfo, session);
 //        templateEntity.setCustomerId(customerId);
         return new String(Base64.getDecoder().decode(template.getTemplateContent()));
     }
@@ -68,23 +67,18 @@ public class TemplateResource extends BaseResource<Template> {
     @POST
     @Path("{customerId}/templates")
     public Response createTemplate(@PathParam("customerId") String customerId, JsonObject jsonObject, @Context UriInfo uriInfo) {
-        return super.createEntity(uriInfo, jsonObject, session);
+        return super.post(uriInfo, jsonObject, session);
     }
 
     @DELETE
     @Path("{customerId}/templates/{templateId}")
     public Response removeTemplate(@PathParam("customerId") String customerId, @PathParam("templateId") String templateId, @Context UriInfo uriInfo) {
-        return super.removeEntity(uriInfo.getPath(), session);
+        return super.delete(uriInfo, session);
     }
 
     @Override
-    protected Processor<Template> getProcessor() {
-        return templateProcessor;
-    }
-
-    @Override
-    protected Controller getController() {
-        return null;
+    protected Controller<Template> getHttpController() {
+        return templateHttpController;
     }
 
     @Override

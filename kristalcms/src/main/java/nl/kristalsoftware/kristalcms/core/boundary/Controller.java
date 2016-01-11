@@ -11,8 +11,10 @@ import javax.ws.rs.core.UriInfo;
 /**
  * Created by sjoerdadema on 06/01/16.
  */
-public interface Controller {
+public interface Controller<E> {
 
+    E get(UriInfo uriInfo, Session session) throws PathNotFoundException, CMSDataException;
     String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException;
+    void delete(UriInfo uriInfo, Session session) throws PathNotFoundException, CMSDataException;
 
 }

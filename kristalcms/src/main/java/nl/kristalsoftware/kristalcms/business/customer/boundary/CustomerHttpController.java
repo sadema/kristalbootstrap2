@@ -15,7 +15,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * Created by sjoerdadema on 06/01/16.
  */
-public class CustomerController implements Controller {
+public class CustomerHttpController implements Controller<Customer> {
 
     @Inject
     Processor<Customer> customerProcessor;
@@ -24,10 +24,20 @@ public class CustomerController implements Controller {
     CustomerChildrenBuilder customerChildrenBuilder;
 
     @Override
+    public Customer get(UriInfo uriInfo, Session session) throws PathNotFoundException, CMSDataException {
+        return customerProcessor.getEntity(uriInfo.getPath(), session);
+    }
+
+    @Override
     public String post(UriInfo uriInfo, JsonObject jsonObject, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {
         String newPath = customerProcessor.createNewEntity(uriInfo.getPath(), jsonObject, session);
         customerChildrenBuilder.build(newPath, session);
         return newPath;
+    }
+
+    @Override
+    public void delete(UriInfo uriInfo, Session session) throws PathNotFoundException, CMSDataException {
+        customerProcessor.deleteEntity(uriInfo.getPath(), session);
     }
 
 }

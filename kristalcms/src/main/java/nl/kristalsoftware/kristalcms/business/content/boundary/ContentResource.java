@@ -32,7 +32,7 @@ public class ContentResource extends BaseResource<Content> {
     Session session;
 
     @Inject
-    Processor<Content> contentProcessor;
+    Controller<Content> contentHttpController;
 
     @GET
     @Path("{customerId}/content/{pageId}/paragraphs/{paragraphId}")
@@ -40,7 +40,7 @@ public class ContentResource extends BaseResource<Content> {
                               @PathParam("pageId") String pageId,
                               @PathParam("paragraphId") String paragraphId,
                               @Context UriInfo uriInfo) {
-        Content content = super.getEntity(uriInfo.getPath(), session);
+        Content content = super.get(uriInfo, session);
         return content;
     }
 
@@ -50,7 +50,7 @@ public class ContentResource extends BaseResource<Content> {
                                   @PathParam("pageId") String pageId,
                                   JsonObject jsonObject,
                                   @Context UriInfo uriInfo) {
-        return super.createEntity(uriInfo, jsonObject, session);
+        return super.post(uriInfo, jsonObject, session);
     }
 
     @DELETE
@@ -59,17 +59,12 @@ public class ContentResource extends BaseResource<Content> {
                                   @PathParam("pageId") String pageId,
                                   @PathParam("paragraphId") String paragraphId,
                                   @Context UriInfo uriInfo) {
-        return super.removeEntity(uriInfo.getPath(), session);
+        return super.delete(uriInfo, session);
     }
 
     @Override
-    protected Processor<Content> getProcessor() {
-        return contentProcessor;
-    }
-
-    @Override
-    protected Controller getController() {
-        return null;
+    protected Controller<Content> getHttpController() {
+        return contentHttpController;
     }
 
     @Override

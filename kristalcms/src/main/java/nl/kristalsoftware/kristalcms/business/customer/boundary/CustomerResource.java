@@ -36,10 +36,7 @@ public class CustomerResource extends BaseResource<Customer> {
     Session session;
 
     @Inject
-    CustomerController controller;
-
-    @Inject
-    Processor<Customer> customerProcessor;
+    CustomerHttpController customerHttpController;
 
     @PostConstruct
     public void init() {
@@ -51,30 +48,24 @@ public class CustomerResource extends BaseResource<Customer> {
     @GET
     @Path("{customerId}")
     public Customer getCustomer(@PathParam("customerId") String customerId, @Context UriInfo uriInfo) {
-        Customer customer = super.getEntity(uriInfo.getPath(), session);
+        Customer customer = super.get(uriInfo, session);
         return customer;
     }
 
     @POST
     @Consumes("application/json")
     public Response createCustomer(JsonObject jsonObject, @Context UriInfo uriInfo) {
-        return super.createEntity(uriInfo, jsonObject, session);
+        return super.post(uriInfo, jsonObject, session);
     }
 
     @DELETE
     @Path("{customerId}")
     public Response removeCustomer(@PathParam("customerId") String customerId, @Context UriInfo uriInfo) {
-        return super.removeEntity(uriInfo.getPath(), session);
+        return super.delete(uriInfo, session);
     }
 
-    @Override
-    protected Processor<Customer> getProcessor() {
-        return customerProcessor;
-    }
-
-    @Override
-    protected Controller getController() {
-        return controller;
+    protected Controller<Customer> getHttpController() {
+        return customerHttpController;
     }
 
     @Override

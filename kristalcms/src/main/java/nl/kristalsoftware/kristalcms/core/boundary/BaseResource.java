@@ -18,11 +18,13 @@ import java.net.URI;
  */
 public abstract class BaseResource<E extends BaseEntity> {
 
-    public E getEntity(String path, Session session) {
+    public E get(UriInfo uriInfo, Session session) {
         E entity = null;
         try {
-            Processor<E> processor = getProcessor();
-            entity = processor.getEntity(path, session);
+            Controller<E> controller = getHttpController();
+            entity = controller.get(uriInfo, session);
+//            Processor<E> processor = getProcessor();
+//            entity = processor.getEntity(path, session);
         } catch (PathNotFoundException e) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         } catch (CMSDataException e) {
@@ -31,10 +33,10 @@ public abstract class BaseResource<E extends BaseEntity> {
         return entity;
     }
 
-    public Response createEntity(UriInfo uriInfo, JsonObject jsonObject, Session session) {
+    public Response post(UriInfo uriInfo, JsonObject jsonObject, Session session) {
         Response response = null;
         try {
-            Controller controller = getController();
+            Controller<E> controller = getHttpController();
             String newPath = controller.post(uriInfo, jsonObject, session);
 
 //            Processor<E> processor = getProcessor();
@@ -53,11 +55,13 @@ public abstract class BaseResource<E extends BaseEntity> {
         return response;
     }
 
-    public Response removeEntity(String path, Session session) {
+    public Response delete(UriInfo uriInfo, Session session) {
         Response response = null;
         try {
-            Processor<E> processor = getProcessor();
-            processor.deleteEntity(path, session);
+            Controller<E> controller = getHttpController();
+            controller.delete(uriInfo, session);
+//            Processor<E> processor = getProcessor();
+//            processor.deleteEntity(path, session);
             entityRemoved();
             response = Response.noContent().build();
         } catch (PathNotFoundException e) {
@@ -76,9 +80,7 @@ public abstract class BaseResource<E extends BaseEntity> {
         }
 
     }
-    abstract protected Processor<E> getProcessor();
-
-    abstract protected Controller getController();
+    abstract protected Controller<E> getHttpController();
 
     abstract protected void entityCreated() throws CMSDataException;
 
