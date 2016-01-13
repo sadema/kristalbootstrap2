@@ -1,10 +1,13 @@
 package nl.kristalsoftware.kristalcms.business.template.boundary;
 
 import nl.kristalsoftware.kristalcms.business.template.entity.Template;
+import nl.kristalsoftware.kristalcms.business.templates.entity.Templates;
 import nl.kristalsoftware.kristalcms.core.boundary.BaseResource;
 import nl.kristalsoftware.kristalcms.core.boundary.Controller;
 import nl.kristalsoftware.kristalcms.core.boundary.Processor;
 import nl.kristalsoftware.kristalcms.core.main.CMSDataException;
+import org.jboss.resteasy.links.AddLinks;
+import org.jboss.resteasy.links.LinkResource;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -47,10 +50,14 @@ public class TemplateResource extends BaseResource<Template> {
 //            @LinkResource,
 //            @LinkResource(value = TemplatesRepresentation.class, rel = "template")
 //    })
+    @AddLinks
+    @LinkResource
+//    @LinkResource(value = Templates.class, rel = "template")
     @GET
     @Path("{customerId}/templates/{templateId}")
     public Template getTemplate(@PathParam("customerId") String customerId, @PathParam("templateId") String templateId, @Context UriInfo uriInfo) {
         Template template = super.get(uriInfo, session);
+        template.getCustomer().setId(customerId);
         return template;
     }
 

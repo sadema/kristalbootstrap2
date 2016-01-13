@@ -1,8 +1,10 @@
 package nl.kristalsoftware.kristalcms.business.template.entity;
 
+import nl.kristalsoftware.kristalcms.business.customer.entity.Customer;
 import nl.kristalsoftware.kristalcms.core.entity.BaseEntity;
 import nl.kristalsoftware.kristalcms.core.jcr.TextFile;
 import nl.kristalsoftware.kristalcms.core.jcr.JcrContentNode;
+import org.jboss.resteasy.links.ParentResource;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
 
 import javax.inject.Inject;
@@ -17,9 +19,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="template")
 public class Template implements BaseEntity {
 
-//    @ParentResource
-//    @Inject
-//    Customer customer;
+    @ParentResource
+    private Customer customer;
 
     @XmlID
     @XmlAttribute(name="id")
@@ -35,7 +36,9 @@ public class Template implements BaseEntity {
     @TextFile
     JcrContentNode<String> jcrContent;
 
-    public Template() {}
+    public Template() {
+        customer = new Customer();
+    }
 
     @Override
     public String getId() {
@@ -52,6 +55,10 @@ public class Template implements BaseEntity {
 
     public void setTemplateContent(String templateContent) {
         this.templateContent = templateContent;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     @Override

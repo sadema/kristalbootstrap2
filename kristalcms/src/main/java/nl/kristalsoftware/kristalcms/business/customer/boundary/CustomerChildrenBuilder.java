@@ -1,5 +1,7 @@
 package nl.kristalsoftware.kristalcms.business.customer.boundary;
 
+import nl.kristalsoftware.kristalcms.business.pages.boundary.PagesBuilder;
+import nl.kristalsoftware.kristalcms.business.templates.boundary.TemplatesBuilder;
 import nl.kristalsoftware.kristalcms.core.boundary.Builder;
 import nl.kristalsoftware.kristalcms.core.boundary.ChildrenBuilder;
 import nl.kristalsoftware.kristalcms.core.main.CMSDataException;
@@ -20,11 +22,14 @@ public class CustomerChildrenBuilder implements ChildrenBuilder {
     private List<Builder> childBuilderlist;
 
     @Inject
-    Builder pagesBuilder;
+    TemplatesBuilder templatesBuilder;
+
+    @Inject
+    PagesBuilder pagesBuilder;
 
     @PostConstruct
     public void init() {
-        childBuilderlist = Arrays.asList(pagesBuilder);
+        childBuilderlist = Arrays.asList(templatesBuilder, pagesBuilder);
     }
 
     public void build(String parentPath, Session session) throws PathNotFoundException, ItemExistsException, CMSDataException {

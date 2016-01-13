@@ -1,6 +1,7 @@
-package nl.kristalsoftware.kristalcms.business.pages.entity;
+package nl.kristalsoftware.kristalcms.business.templates.entity;
 
 import nl.kristalsoftware.kristalcms.business.customer.entity.Customer;
+import nl.kristalsoftware.kristalcms.business.template.entity.Template;
 import nl.kristalsoftware.kristalcms.core.entity.BaseEntity;
 import org.jboss.resteasy.links.ParentResource;
 import org.jboss.resteasy.links.RESTServiceDiscovery;
@@ -8,33 +9,47 @@ import org.jboss.resteasy.links.RESTServiceDiscovery;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by sjoerdadema on 07/01/16.
+ * Created by sjoerdadema on 12/01/16.
  */
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlRootElement(name="pages")
-public class Pages implements BaseEntity {
+@XmlRootElement(name = "templates")
+public class Templates implements BaseEntity {
 
     @ParentResource
     private Customer customer;
 
-    @XmlAttribute(name="id")
-    private String pagesId;
+    @XmlAttribute(name = "id")
+    private String templatesId;
+
+    @XmlElement
+    private List<Template> templateList;
 
     @XmlElementRef
     private RESTServiceDiscovery rest;
-    public Pages() {
+
+    public Templates() {
         customer = new Customer();
     }
 
     @Override
     public String getId() {
-        return pagesId;
+        return templatesId;
     }
 
-    public void setId(String pagesId) {
-        this.pagesId = pagesId;
+    public void setId(String templatesId) {
+        this.templatesId = templatesId;
+    }
+
+    public void setTemplateList(List<Template> templateList) {
+        this.templateList = templateList;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     @Override
