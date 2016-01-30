@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Kristalcms</title>
+    <script src="node_modules/es6-shim/es6-shim.js"></script> 
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script> 
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+     <script src="node_modules/angular2/bundles/angular2.dev.js"></script> 
+    <script src="node_modules/angular2/bundles/http.min.js"></script> 
+    <!-- Bootstrap CSS --> 
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css"> 
 </head>
 <body>
-    <h1>Hello World</h1>
+    <script> 
+        System.config({ 
+            packages: { 
+                app: { 
+                    format: 'register',
+                    defaultExtension: 'js' 
+                }
+            }
+        });
+        System.import('app/main') 
+                .then(null, console.error.bind(console)); 
+    </script>  
+    <div class="container"> 
+        <my-app></my-app>
+    </div>
 </body>
 </html>

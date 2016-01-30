@@ -2,6 +2,12 @@
 target
 *.iml
 
+#angular2
+node_modules
+*.js
+*.js.map
+*.log
+
 *.class
 
 # Mobile Tools for Java (J2ME)
