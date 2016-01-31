@@ -7,7 +7,7 @@ interface Navigationbar {
 
 interface NavigationbarItem {
     title: string;
-    enabled: boolean;
+    disabled: boolean;
 }
 
 @Component({
@@ -17,7 +17,7 @@ interface NavigationbarItem {
         <h1 class="navbar-brand" href="#">{{navigationbar.title}}</h1>
         <ul class="nav navbar-nav">
             <li *ngFor="#item of items" class="nav-item">
-                <a class="nav-link" href="#">{{item.title}}</a>
+                <a class="nav-link" [ngClass]="{disabled: item.disabled}" href="#">{{item.title}}</a>
             </li>
         </ul>
     </nav>
@@ -29,6 +29,6 @@ export class AppComponent {
         activeItem: 0
     };
 
-    public items: NavigationbarItem[] = [{title: 'templates', enabled: true}, {title: 'pages', enabled: false}];
+    public items: NavigationbarItem[] = [{title: 'templates', disabled: false}, {title: 'pages', disabled: true}];
 
 }
