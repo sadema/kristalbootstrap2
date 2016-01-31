@@ -2,31 +2,33 @@ import { Component } from "angular2/core";
 
 interface Navigationbar {
     title: string;
+    activeItem: number;
+}
+
+interface NavigationbarItem {
+    title: string;
+    enabled: boolean;
 }
 
 @Component({
     selector: 'my-app',
     template: `
-    <nav class="navbar navbar-light bg-faded">
-        <a class="navbar-brand" href="#">{{navigationbar.title}}</a>
-  <ul class="nav navbar-nav">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Features</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Pricing</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">About</a>
-    </li>
-  </ul>
-</nav>    `
+    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+        <h1 class="navbar-brand" href="#">{{navigationbar.title}}</h1>
+        <ul class="nav navbar-nav">
+            <li *ngFor="#item of items" class="nav-item">
+                <a class="nav-link" href="#">{{item.title}}</a>
+            </li>
+        </ul>
+    </nav>
+        `
 })
 export class AppComponent {
     public navigationbar: Navigationbar = {
-        title: 'prima'
+        title: 'prima',
+        activeItem: 0
     };
+
+    public items: NavigationbarItem[] = [{title: 'templates', enabled: true}, {title: 'pages', enabled: false}];
+
 }
