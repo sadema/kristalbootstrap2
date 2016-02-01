@@ -16,8 +16,8 @@ interface NavigationbarItem {
     <nav class="navbar navbar-fixed-top navbar-light bg-faded">
         <h1 class="navbar-brand" href="#">{{navigationbar.title}}</h1>
         <ul class="nav navbar-nav">
-            <li *ngFor="#item of items" class="nav-item">
-                <a class="nav-link" [ngClass]="{disabled: item.disabled}" href="#">{{item.title}}</a>
+            <li *ngFor="#item of items; #num = index" class="nav-item">
+                <a class="nav-link" [class.disabled] = "isDisabled(num)" [class.active] = "isActive(num)" href="#">{{item.title}}</a>
             </li>
         </ul>
     </nav>
@@ -31,4 +31,11 @@ export class AppComponent {
 
     public items: NavigationbarItem[] = [{title: 'templates', disabled: false}, {title: 'pages', disabled: true}];
 
+    public isActive(num: number): boolean {
+        return num === this.navigationbar.activeItem;
+    }
+
+    public isDisabled(num: number): boolean {
+        return this.items[num].disabled;
+    }
 }
