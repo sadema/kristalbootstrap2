@@ -1,4 +1,4 @@
-import { bootstrap } from "angular2/platform/browser";
-import { AppComponent } from "./app.component";
+import { bootstrap } from 'angular2/platform/browser';
+import { KristalcmsComponent } from './kristalcms.component';
 
-bootstrap(AppComponent);
+bootstrap(KristalcmsComponent);
