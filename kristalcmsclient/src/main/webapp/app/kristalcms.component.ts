@@ -5,9 +5,9 @@ import {NavigationItem} from "./navigation_item";
 @Component({
     selector: 'kristalcms-app',
     template: `
-        <navigation-bar
+        <nav
             [itemList] = "items">
-        </navigation-bar>
+        </nav>
         <h1>Hello World</h1>
     `,
     directives: [NavigationBar]
